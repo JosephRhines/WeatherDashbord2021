@@ -1,7 +1,9 @@
+var cities =[]
+
 $("#localButton").on("click", function(event) {
     event.preventDefault();
     var cityLocal = $("#search-local").val().trim();
-    var queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?q=" + cityLocal + "&appid=f2980ecc35d520148f7dd373eaa5ca70&units=imperial"
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityLocal + "&appid=f2980ecc35d520148f7dd373eaa5ca70&units=imperial"
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -12,7 +14,20 @@ $("#localButton").on("click", function(event) {
        $("#humid").text("Humidity: " + response.main.humidity + " %")
        $("#wind").text("Wind Speed: " + response.wind.speed + " MPH")
        console.log(response.name)
+       cities.push(response.name)
+       localStorage.setItem("Cities", JSON.stringify(cities));
+       updateHistory()
     });
-
+     
 })
+function updateHistory() {
+cities = JSON.parse((localStorage.getItem("Cities"))) || []
+for (let i= 1;i < 6;i++) {
+    var result = cities[cities.length-i];
+    if (result) {
+        $("#history" + i).text(result)
+    }
+}
+}
 
+updateHistory()
