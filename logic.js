@@ -17,6 +17,16 @@ $("#localButton").on("click", function(event) {
        cities.push(response.name)
        localStorage.setItem("Cities", JSON.stringify(cities));
        updateHistory()
+       var lat = response.coord.lat;
+       var lon = response.coord.lon;
+        
+    $.ajax ({
+    url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=f2980ecc35d520148f7dd373eaa5ca70&units=imperial",
+    Method: "GET"
+    }).then(function (fire) {
+        console.log(fire)
+        $("#uv").text("UV: " + fire.current.uvi);
+    })
     });
      
 })
@@ -31,3 +41,4 @@ for (let i= 1;i < 6;i++) {
 }
 
 updateHistory()
+
