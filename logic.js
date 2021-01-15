@@ -8,12 +8,12 @@ $("#localButton").on("click", function(event) {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
-       console.log(response);
+       
        $("#current").text(response.name);
        $("#temp").text("Temperature: " + response.main.temp + " F")
        $("#humid").text("Humidity: " + response.main.humidity + " %")
        $("#wind").text("Wind Speed: " + response.wind.speed + " MPH")
-       console.log(response.name)
+       
        cities.push(response.name)
        localStorage.setItem("Cities", JSON.stringify(cities));
        updateHistory()
@@ -24,7 +24,7 @@ $("#localButton").on("click", function(event) {
     url: "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=f2980ecc35d520148f7dd373eaa5ca70&units=imperial",
     Method: "GET"
     }).then(function (fire) {
-        console.log(fire)
+        
         $("#uv").text("UV: " + fire.current.uvi);
     })
     });
